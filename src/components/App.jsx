@@ -9,7 +9,7 @@ import { fetchContacts } from 'Redux/operations';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(getContacts);
+  const { isLoading, items } = useSelector(getContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -19,9 +19,13 @@ export const App = () => {
     <div style={{ marginLeft: '10px' }}>
       <h1>Phonebook</h1>
       <ContactForm />
-      <h2>Contacts</h2>
-      <ContactFilter />
-      <ContactList />
+      {items.length > 0 ? (
+        <>
+          <h2>Contacts</h2>
+          <ContactFilter />
+          <ContactList />{' '}
+        </>
+      ) : null}
       {isLoading && <Loader />}
     </div>
   );
